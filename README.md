@@ -10,8 +10,18 @@ Jaya Jaya Institut seeks to proactively detect students who are at risk of dropp
 
 This project leverages data-driven approaches and machine learning to build a predictive model that can identify students likely to drop out. The insights from this model will enable the institute to intervene early and offer special counseling or support to those most in need.
 
-## Overview
-This project provides a robust, end-to-end pipeline for predicting student dropout, enrollment, and graduation using the UCI Student Dropout and Academic Success dataset. It includes data preprocessing, feature engineering, model training with PyCaret, model evaluation, an interactive API, a user-friendly Streamlit web app, and a ready-to-use dataset for Looker Studio dashboards.
+## Project Scope
+This project focuses on building a comprehensive, data-driven solution for predicting student dropout, enrollment, and graduation at Jaya Jaya Institut. The scope includes:
+- Data acquisition and cleaning from the UCI Student Dropout and Academic Success dataset
+- Exploratory data analysis (EDA) to identify key risk factors and trends
+- Feature engineering and selection based on both domain knowledge and model-driven importance
+- Development and evaluation of machine learning models using PyCaret
+- Deployment of the best model via a FastAPI endpoint for programmatic access
+- Creation of an interactive Streamlit web app for user-friendly predictions and scenario testing
+- Preparation of a curated dataset and visualizations for Looker Studio dashboards
+- Documentation and recommendations for institutional action based on model insights
+
+The project does not include real-time integration with institutional databases, but provides all necessary tools and documentation for future deployment and adaptation to other educational contexts.
 
 ## Data Source
 - **Dataset:** [UCI Machine Learning Repository – Predict students dropout and academic success](https://archive.ics.uci.edu/ml/datasets/predict+students+dropout+and+academic+success)
@@ -53,12 +63,17 @@ This project provides a robust, end-to-end pipeline for predicting student dropo
 An interactive Looker Studio dashboard has been created to visualize key insights from the student dropout prediction model. The dashboard includes:
 - Target distribution (dropout, enrolled, graduate)
 - Feature impact and importance
-- Subgroup analysis by course, gender, scholarship status, and more
 - Numeric feature distributions and trends
 
 You can explore the dashboard here: [Student Dropout Prediction Looker Studio Dashboard](https://lookerstudio.google.com/reporting/79693c0f-f238-4125-b217-da852daf7336)
 
 This dashboard enables stakeholders to interactively explore the most important factors influencing student outcomes and supports data-driven decision making for early intervention and student support.
+
+## Public Streamlit App
+
+A public Streamlit web app is available for interactive student dropout prediction. Users can input student information, select categorical variables from dropdowns, and receive instant predictions along with model insights. This app is designed for both institutional staff and researchers to explore the model's behavior and test different scenarios.
+
+Access the app here: [Student Dropout Prediction Streamlit App](https://jji-dropout-prediction-j3ekr7sfhn7hurksvnh8mm.streamlit.app/)
 
 ## Setup Instructions
 
@@ -114,6 +129,7 @@ This dashboard enables stakeholders to interactively explore the most important 
    - Suggested visualizations: target distribution, feature impact, numeric feature distributions, trends, and drilldowns. See project documentation for layout ideas.
 
 ## Conclusion
+This project has enabled Jaya Jaya Institut to move from reactive to proactive student support by providing actionable, data-driven insights into dropout risk. With early identification of at-risk students and clear recommendations for intervention, the institute is now better equipped to improve student retention and success. The tools and findings from this project lay a strong foundation for ongoing monitoring, targeted support, and continuous improvement in educational outcomes.
 
 ### Insights
 - **Class Distribution:**  
