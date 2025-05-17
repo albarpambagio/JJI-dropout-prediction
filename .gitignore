@@ -19,5 +19,7 @@ model_outputs/
 *.png
 
 todo.md
-variable_list.md
+
+logs.log
+*.log
 

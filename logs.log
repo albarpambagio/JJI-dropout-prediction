@@ -25992,3 +25992,222 @@ Categories (3, object): ['Dropout', 'Enrolled', 'Graduate']
 2025-05-17 11:39:17,163:WARNING:d:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
   warnings.warn(
 
+2025-05-17 14:09:18,785:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:09:18,785:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:09:18,785:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:09:18,785:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:09:20,240:INFO:Initializing load_model()
+2025-05-17 14:09:20,240:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:09:21,028:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:10:00,073:INFO:Initializing predict_model()
+2025-05-17 14:10:00,073:INFO:predict_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x000001FA5CF82940>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('label_encoding',
+                 TransformerWrapperWithInverse(transformer=LabelEncoder())),
+                ('numerical_imputer',
+                 TransformerWrapper(include=['Marital_Status',
+                                             'Application_mode',
+                                             'Application_order', 'Course',
+                                             'Daytime_evening_attendance',
+                                             'Previous_qualification',
+                                             'Previous_qualification_grade',
+                                             'Nacionality',
+                                             'Mothers_qualif...
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('balance',
+                 TransformerWrapper(transformer=FixImbalancer(estimator=SMOTE(random_state=42)))),
+                ('feature_selection',
+                 TransformerWrapper(exclude=[],
+                                    transformer=SelectFromModel(estimator=LGBMClassifier(),
+                                                                max_features=7,
+                                                                threshold=-inf))),
+                ('actual_estimator',
+                 GradientBoostingClassifier(random_state=42))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x000001FA5D1AC310>)
+2025-05-17 14:10:00,073:INFO:Checking exceptions
+2025-05-17 14:10:00,073:INFO:Preloading libraries
+2025-05-17 14:10:00,074:INFO:Set up data.
+2025-05-17 14:10:00,087:INFO:Set up index.
+2025-05-17 14:11:34,186:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:11:34,186:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:11:34,186:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:11:34,186:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:11:35,536:INFO:Initializing load_model()
+2025-05-17 14:11:35,537:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:11:35,647:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:12:51,859:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:12:51,859:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:12:51,859:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:12:51,859:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:12:53,186:INFO:Initializing load_model()
+2025-05-17 14:12:53,186:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:12:53,298:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:13:00,297:INFO:Initializing predict_model()
+2025-05-17 14:13:00,298:INFO:predict_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x000001F0985BD250>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('label_encoding',
+                 TransformerWrapperWithInverse(transformer=LabelEncoder())),
+                ('numerical_imputer',
+                 TransformerWrapper(include=['Marital_Status',
+                                             'Application_mode',
+                                             'Application_order', 'Course',
+                                             'Daytime_evening_attendance',
+                                             'Previous_qualification',
+                                             'Previous_qualification_grade',
+                                             'Nacionality',
+                                             'Mothers_qualif...
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('balance',
+                 TransformerWrapper(transformer=FixImbalancer(estimator=SMOTE(random_state=42)))),
+                ('feature_selection',
+                 TransformerWrapper(exclude=[],
+                                    transformer=SelectFromModel(estimator=LGBMClassifier(),
+                                                                max_features=7,
+                                                                threshold=-inf))),
+                ('actual_estimator',
+                 GradientBoostingClassifier(random_state=42))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x000001F09859A700>)
+2025-05-17 14:13:00,298:INFO:Checking exceptions
+2025-05-17 14:13:00,298:INFO:Preloading libraries
+2025-05-17 14:13:00,299:INFO:Set up data.
+2025-05-17 14:13:00,315:INFO:Set up index.
+2025-05-17 14:14:32,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:14:32,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:14:32,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:14:32,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:14:33,867:INFO:Initializing load_model()
+2025-05-17 14:14:33,867:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:14:34,000:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:14:37,212:INFO:Initializing predict_model()
+2025-05-17 14:14:37,212:INFO:predict_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000018D3B33E250>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('label_encoding',
+                 TransformerWrapperWithInverse(transformer=LabelEncoder())),
+                ('numerical_imputer',
+                 TransformerWrapper(include=['Marital_Status',
+                                             'Application_mode',
+                                             'Application_order', 'Course',
+                                             'Daytime_evening_attendance',
+                                             'Previous_qualification',
+                                             'Previous_qualification_grade',
+                                             'Nacionality',
+                                             'Mothers_qualif...
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('balance',
+                 TransformerWrapper(transformer=FixImbalancer(estimator=SMOTE(random_state=42)))),
+                ('feature_selection',
+                 TransformerWrapper(exclude=[],
+                                    transformer=SelectFromModel(estimator=LGBMClassifier(),
+                                                                max_features=7,
+                                                                threshold=-inf))),
+                ('actual_estimator',
+                 GradientBoostingClassifier(random_state=42))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x0000018D3B31A700>)
+2025-05-17 14:14:37,212:INFO:Checking exceptions
+2025-05-17 14:14:37,212:INFO:Preloading libraries
+2025-05-17 14:14:37,213:INFO:Set up data.
+2025-05-17 14:14:37,223:INFO:Set up index.
+2025-05-17 14:15:53,062:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:15:53,062:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:15:53,062:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:15:53,062:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:15:54,180:INFO:Initializing load_model()
+2025-05-17 14:15:54,180:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:15:54,305:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:16:08,091:INFO:Initializing load_model()
+2025-05-17 14:16:08,092:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:16:33,944:INFO:Initializing load_model()
+2025-05-17 14:16:33,945:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:16:34,107:INFO:Initializing predict_model()
+2025-05-17 14:16:34,107:INFO:predict_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x0000022366548460>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('label_encoding',
+                 TransformerWrapperWithInverse(transformer=LabelEncoder())),
+                ('numerical_imputer',
+                 TransformerWrapper(include=['Marital_Status',
+                                             'Application_mode',
+                                             'Application_order', 'Course',
+                                             'Daytime_evening_attendance',
+                                             'Previous_qualification',
+                                             'Previous_qualification_grade',
+                                             'Nacionality',
+                                             'Mothers_qualif...
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('balance',
+                 TransformerWrapper(transformer=FixImbalancer(estimator=SMOTE(random_state=42)))),
+                ('feature_selection',
+                 TransformerWrapper(exclude=[],
+                                    transformer=SelectFromModel(estimator=LGBMClassifier(),
+                                                                max_features=7,
+                                                                threshold=-inf))),
+                ('actual_estimator',
+                 GradientBoostingClassifier(random_state=42))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x0000022366871D30>)
+2025-05-17 14:16:34,108:INFO:Checking exceptions
+2025-05-17 14:16:34,108:INFO:Preloading libraries
+2025-05-17 14:16:34,109:INFO:Set up data.
+2025-05-17 14:16:34,120:INFO:Set up index.
+2025-05-17 14:19:02,494:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:19:02,494:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:19:02,494:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:19:02,494:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:19:03,700:INFO:Initializing load_model()
+2025-05-17 14:19:03,701:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:19:03,805:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:19:16,202:INFO:Initializing load_model()
+2025-05-17 14:19:16,202:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:19:19,737:INFO:Initializing predict_model()
+2025-05-17 14:19:19,738:INFO:predict_model(self=<pycaret.classification.oop.ClassificationExperiment object at 0x000001F85F2B07F0>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('label_encoding',
+                 TransformerWrapperWithInverse(transformer=LabelEncoder())),
+                ('numerical_imputer',
+                 TransformerWrapper(include=['Marital_Status',
+                                             'Application_mode',
+                                             'Application_order', 'Course',
+                                             'Daytime_evening_attendance',
+                                             'Previous_qualification',
+                                             'Previous_qualification_grade',
+                                             'Nacionality',
+                                             'Mothers_qualif...
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('balance',
+                 TransformerWrapper(transformer=FixImbalancer(estimator=SMOTE(random_state=42)))),
+                ('feature_selection',
+                 TransformerWrapper(exclude=[],
+                                    transformer=SelectFromModel(estimator=LGBMClassifier(),
+                                                                max_features=7,
+                                                                threshold=-inf))),
+                ('actual_estimator',
+                 GradientBoostingClassifier(random_state=42))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x000001F85EFE79D0>)
+2025-05-17 14:19:19,738:INFO:Checking exceptions
+2025-05-17 14:19:19,738:INFO:Preloading libraries
+2025-05-17 14:19:19,739:INFO:Set up data.
+2025-05-17 14:19:19,747:INFO:Set up index.
