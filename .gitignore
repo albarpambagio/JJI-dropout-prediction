@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Ignore EDA output files
+test_outputs/
+eda_outputs/
+
+# Ignore model output files
+model_outputs/
+*.csv
+*.png
+
+todo.md
+variable_list.md
+
