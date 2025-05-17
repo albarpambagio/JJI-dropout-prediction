@@ -26211,3 +26211,29 @@ Categories (3, object): ['Dropout', 'Enrolled', 'Graduate']
 2025-05-17 14:19:19,738:INFO:Preloading libraries
 2025-05-17 14:19:19,739:INFO:Set up data.
 2025-05-17 14:19:19,747:INFO:Set up index.
+2025-05-17 14:25:31,561:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:25:31,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:25:31,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:25:31,562:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:25:32,731:INFO:Initializing load_model()
+2025-05-17 14:25:32,731:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:25:32,843:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
+2025-05-17 14:27:26,701:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:27:26,701:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:27:26,701:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:27:26,701:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2025-05-17 14:27:27,845:INFO:Initializing load_model()
+2025-05-17 14:27:27,845:INFO:load_model(model_name=model_outputs/final_student_dropout_model, platform=None, authentication=None, verbose=True)
+2025-05-17 14:27:27,955:WARNING:D:\0. Project\JJI-dropout-prediction\.venv\lib\site-packages\_distutils_hack\__init__.py:30: UserWarning: Setuptools is replacing distutils. Support for replacing an already imported distutils is deprecated. In the future, this condition will fail. Register concerns at https://github.com/pypa/setuptools/issues/new?template=distutils-deprecation.yml
+  warnings.warn(
+
