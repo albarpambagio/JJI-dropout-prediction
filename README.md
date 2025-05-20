@@ -93,8 +93,6 @@ Access the app here: [Student Dropout Prediction Streamlit App](https://jji-drop
 3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
-   # Or, if using uv:
-   uv pip install fastapi uvicorn pydantic streamlit pycaret pandas scikit-learn matplotlib seaborn ucimlrepo numpy
    ```
 
 ## Usage
