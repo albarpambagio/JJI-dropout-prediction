@@ -13,17 +13,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pycaret.classification import setup, compare_models, pull, save_model, evaluate_model, predict_model, get_config, finalize_model, plot_model
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.inspection import permutation_importance
+import joblib
 import shap
 import os
 import json
-
-# Key categorical mappings from variable_list.md
-GENDER_MAP = {1: 'male', 0: 'female'}
-MARITAL_STATUS_MAP = {
-    1: 'single', 2: 'married', 3: 'widower', 4: 'divorced', 5: 'facto union', 6: 'legally separated'
-}
-TARGET_MAP = {0: 'Dropout', 1: 'Enrolled', 2: 'Graduate'}  # Adjust if actual codes differ
+os.makedirs('model_outputs', exist_ok=True)
 
 # %% [markdown]
 """
@@ -108,26 +106,24 @@ if missing_features:
 
 # %% [markdown]
 """
-## Model Development with Consistent Features
+## Model Development with Consistent Features (scikit-learn version)
 We set up PyCaret with the cleaned data, enabling feature selection, multicollinearity removal, and class imbalance correction. This step prepares the data and environment for robust model training.
 """
 # %%
-# Setup environment with cleaned data
-exp = setup(
-    data=df_clean,
-    target='Target',
-    session_id=42,
-    fold_strategy='stratifiedkfold',
-    fold=5,
-    feature_selection=True,
-    remove_multicollinearity=True,
-    fix_imbalance=True,
-    verbose=False
+# Prepare data
+X = df_clean.drop('Target', axis=1)
+y = df_clean['Target']
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# Train and finalize model
-best_model = compare_models(sort='F1')
-final_model = finalize_model(best_model)
+# Train GradientBoostingClassifier
+model = GradientBoostingClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+final_model = model  # for compatibility with rest of code
 
 # %% [markdown]
 """
@@ -135,87 +131,54 @@ final_model = finalize_model(best_model)
 We evaluate the finalized model using confusion matrix, class report, and feature importance plots. This provides insight into model performance and areas for improvement.
 """
 # %%
-# Wrapper function for consistent evaluation
-def safe_evaluation(model, data=None):
-    """Handle feature name consistency during evaluation"""
-    if data is not None:
-        data = standardize_feature_names(data)
-        # Ensure all training features exist
-        for f in required_features:
-            if f not in data.columns and f != 'Target':
-                data[f] = 0
-    try:
-        # Plot confusion matrix
-        plot_model(model, plot='confusion_matrix', save=True)
-        # Plot class report
-        plot_model(model, plot='class_report', save=True)
-        # Plot feature importance
-        plot_model(model, plot='feature', save=True)
-        print("All evaluations completed successfully")
-    except Exception as e:
-        print(f"Evaluation error: {str(e)}")
-        # Fallback to SHAP feature importance
-        import shap
-        # Extract the underlying estimator from the pipeline
-        if hasattr(model, 'steps'):
-            estimator = model.steps[-1][1]
-        else:
-            estimator = model
-        explainer = shap.TreeExplainer(estimator)
-        shap_values = explainer.shap_values(df_clean.drop('Target', axis=1))
-        shap.summary_plot(shap_values, df_clean.drop('Target', axis=1), show=False)
-        plt.savefig('feature_importance_fallback.png')
-        plt.close()
-
-# Run evaluations
-safe_evaluation(final_model)
-
-# %% [markdown]
-"""
-## SHAP Analysis with Feature Consistency
-"""
-# %%
-def run_shap_analysis(model, data):
-    """Run SHAP analysis with feature name handling"""
-    data_clean = standardize_feature_names(data)
-    X = data_clean.drop('Target', axis=1)
-    # Ensure all features exist
-    for f in required_features:
-        if f not in X.columns and f != 'Target':
-            X[f] = 0
-    try:
-        import shap
-        # Extract the underlying estimator from the pipeline
-        if hasattr(model, 'steps'):
-            estimator = model.steps[-1][1]
-        else:
-            estimator = model
-        explainer = shap.TreeExplainer(estimator)
-        shap_values = explainer.shap_values(X)
-        # Summary plot
+def safe_evaluation(model, X_test, y_test):
+    """Evaluate model using confusion matrix, class report, and feature importance plots."""
+    y_pred = model.predict(X_test)
+    y_proba = model.predict_proba(X_test)
+    # Confusion matrix
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.tight_layout()
+    plt.savefig('model_outputs/confusion_matrix.png', dpi=300)
+    plt.close()
+    # Save confusion matrix as CSV
+    cm_df = pd.DataFrame(cm)
+    cm_df.to_csv('model_outputs/confusion_matrix.csv', index=False)
+    # Classification report
+    cr = classification_report(y_test, y_pred, output_dict=True)
+    cr_df = pd.DataFrame(cr).transpose()
+    # Only plot actual class rows and main metrics
+    class_rows = [c for c in cr_df.index if c not in ['accuracy', 'macro avg', 'weighted avg']]
+    # Export a plot-matching CSV with only per-class metrics (no accuracy row)
+    plot_df = cr_df.loc[class_rows, ['precision', 'recall', 'f1-score']].copy()
+    plot_df.to_csv('model_outputs/classification_report_plot.csv')
+    # Plot heatmap (only class rows, main metrics)
+    plt.figure(figsize=(8, 4))
+    sns.heatmap(cr_df.loc[class_rows, ['precision', 'recall', 'f1-score']], annot=True, cmap='viridis')
+    plt.title('Classification Report')
+    plt.tight_layout()
+    plt.savefig('model_outputs/classification_report.png', dpi=300)
+    plt.close()
+    # Feature importance
+    if hasattr(model, 'feature_importances_'):
+        importance_df = pd.DataFrame({
+            'feature': X_test.columns,
+            'importance': model.feature_importances_
+        }).sort_values('importance', ascending=False)
+        importance_df.to_csv('model_outputs/feature_importance_fallback.csv', index=False)
         plt.figure(figsize=(12, 8))
-        if isinstance(shap_values, list):
-            for i, sv in enumerate(shap_values):
-                shap.summary_plot(sv, X, show=False)
-                plt.title(f'SHAP Summary - Class {i}')
-                plt.tight_layout()
-                plt.savefig(f'shap_class_{i}.png', dpi=300)
-                plt.close()
-        else:
-            shap.summary_plot(shap_values, X, show=False)
-            plt.tight_layout()
-            plt.savefig('shap_summary.png', dpi=300)
-            plt.close()
-        # Export values
-        if isinstance(shap_values, list):
-            for i, sv in enumerate(shap_values):
-                pd.DataFrame(sv, columns=X.columns).to_csv(f'shap_values_class_{i}.csv')
-        else:
-            pd.DataFrame(shap_values, columns=X.columns).to_csv('shap_values.csv')
-    except Exception as e:
-        print(f"SHAP failed: {str(e)}")
+        sns.barplot(x='importance', y='feature', data=importance_df.head(20), palette='viridis')
+        plt.title('Top 20 Most Important Features (Native Importance)')
+        plt.tight_layout()
+        plt.savefig('model_outputs/feature_importance_fallback_plot.png', dpi=300)
+        plt.close()
+    print("All evaluations completed successfully")
 
-run_shap_analysis(final_model, df)
+safe_evaluation(final_model, X_test, y_test)
 
 # %% [markdown]
 """
@@ -223,78 +186,56 @@ run_shap_analysis(final_model, df)
 We save the finalized model and required features for production use. This ensures reproducibility and enables future predictions on new data.
 """
 # %%
-# Ensure model_outputs directory exists
-os.makedirs('model_outputs', exist_ok=True)
-
 # Save the final model in the proper directory
-save_model(final_model, 'model_outputs/final_student_dropout_model')
+joblib.dump(final_model, 'model_outputs/final_student_dropout_model.joblib')
 
 #%%
 # 5. When making predictions, ensure same preprocessing
 def predict_with_clean_features(model, data):
-    """Wrapper function to ensure consistent feature names and all required features present"""
+    """Ensure consistent feature names and all required features present, then predict."""
     data_clean = standardize_feature_names(data)
     for col in required_features:
         if col not in data_clean.columns and col != 'Target':
-            data_clean[col] = 0  # Or appropriate default/imputation
-    # Reorder columns to match training
+            data_clean[col] = 0
     feature_cols = [col for col in required_features if col in data_clean.columns]
-    if 'Target' in data_clean.columns:
-        feature_cols.append('Target')
-    data_clean = data_clean[[col for col in data_clean.columns if col in feature_cols]]
-    return predict_model(model, data=data_clean)
+    X_pred = data_clean[feature_cols]
+    preds = model.predict(X_pred)
+    proba = model.predict_proba(X_pred)
+    result = data_clean.copy()
+    result['prediction_label'] = preds
+    result['prediction_score'] = proba.max(axis=1)
+    return result
 
 # 6. Usage example: predict on original data (or replace with new data)
 predictions = predict_with_clean_features(final_model, df)
 display(predictions[['Target', 'prediction_label', 'prediction_score']].head())
 
 #%%
-# Generate classification report
-plot_model(final_model, plot='confusion_matrix')
-plot_model(final_model, plot='class_report')
-plot_model(final_model, plot='feature')
-
 # Save required features for production in the same directory
 with open('model_outputs/model_features.json', 'w') as f:
     json.dump(required_features, f)
 
 # After model finalization, export feature importances
 try:
-    # Get the pipeline including preprocessing steps
-    pipeline = final_model
-    
-    # Get the preprocessed data
-    X_test = get_config('X_test')
-    y_test = get_config('y_test')
-    
-    # Calculate permutation importance on the pipeline (including preprocessing)
-    from sklearn.inspection import permutation_importance
     result = permutation_importance(
-        pipeline, 
-        X_test, 
-        y_test, 
-        n_repeats=10, 
+        final_model,
+        X_test,
+        y_test,
+        n_repeats=10,
         random_state=42,
-        n_jobs=-1  # Use all available cores
+        n_jobs=-1
     )
-    
-    # Get the feature names after preprocessing
     used_features = X_test.columns
-    
-    # Create and save importance dataframe
     importance_df = pd.DataFrame({
         'feature': used_features,
         'importance': result.importances_mean
     }).sort_values('importance', ascending=False)
-    
     importance_df.to_csv('model_outputs/feature_importance.csv', index=False)
     print("Successfully exported permutation importance")
-    
-    # Plot feature importance
     plt.figure(figsize=(12, 8))
     sns.barplot(
-        x='importance', 
-        y='feature', 
+        x='importance',
+        y='feature',
         data=importance_df.head(20),
         palette='viridis'
     )
@@ -302,104 +243,13 @@ try:
     plt.tight_layout()
     plt.savefig('model_outputs/feature_importance_plot.png', dpi=300)
     plt.close()
-    
 except Exception as e:
     print(f"Failed to calculate feature importance: {str(e)}")
-    # Fallback to simple feature importance if available
-    if hasattr(estimator, 'feature_importances_'):
+    if hasattr(final_model, 'feature_importances_'):
         try:
             importance_df = pd.DataFrame({
-                'feature': used_features[:len(estimator.feature_importances_)],
-                'importance': estimator.feature_importances_
-            }).sort_values('importance', ascending=False)
-            importance_df.to_csv('model_outputs/feature_importance_fallback.csv', index=False)
-            print("Exported simple feature importance as fallback")
-        except:
-            print("Could not export any feature importance metrics")
-
-# %% [markdown]
-"""
-## Prediction with Clean Features
-We define a function to preprocess new data and make predictions using the finalized model, ensuring consistency with the training pipeline.
-"""
-# %%
-# 5. When making predictions, ensure same preprocessing
-def predict_with_clean_features(model, data):
-    """Wrapper function to ensure consistent feature names and all required features present"""
-    data_clean = standardize_feature_names(data)
-    for col in required_features:
-        if col not in data_clean.columns and col != 'Target':
-            data_clean[col] = 0  # Or appropriate default/imputation
-    # Reorder columns to match training
-    feature_cols = [col for col in required_features if col in data_clean.columns]
-    if 'Target' in data_clean.columns:
-        feature_cols.append('Target')
-    data_clean = data_clean[[col for col in data_clean.columns if col in feature_cols]]
-    return predict_model(model, data=data_clean)
-
-# 6. Usage example: predict on original data (or replace with new data)
-predictions = predict_with_clean_features(final_model, df)
-display(predictions[['Target', 'prediction_label', 'prediction_score']].head())
-
-# %% [markdown]
-"""
-## Feature Importance Extraction
-We use permutation importance to robustly estimate feature importances, saving both a CSV and a plot. If permutation importance fails, we fall back to native feature importances if available. This step helps interpret the model and guide future feature engineering.
-"""
-# %%
-# After model finalization, export feature importances
-try:
-    # Get the pipeline including preprocessing steps
-    pipeline = final_model
-    
-    # Get the preprocessed data
-    X_test = get_config('X_test')
-    y_test = get_config('y_test')
-    
-    # Calculate permutation importance on the pipeline (including preprocessing)
-    from sklearn.inspection import permutation_importance
-    result = permutation_importance(
-        pipeline, 
-        X_test, 
-        y_test, 
-        n_repeats=10, 
-        random_state=42,
-        n_jobs=-1  # Use all available cores
-    )
-    
-    # Get the feature names after preprocessing
-    used_features = X_test.columns
-    
-    # Create and save importance dataframe
-    importance_df = pd.DataFrame({
-        'feature': used_features,
-        'importance': result.importances_mean
-    }).sort_values('importance', ascending=False)
-    
-    importance_df.to_csv('model_outputs/feature_importance.csv', index=False)
-    print("Successfully exported permutation importance")
-    
-    # Plot feature importance
-    plt.figure(figsize=(12, 8))
-    sns.barplot(
-        x='importance', 
-        y='feature', 
-        data=importance_df.head(20),
-        palette='viridis'
-    )
-    plt.title('Top 20 Most Important Features (Permutation Importance)')
-    plt.tight_layout()
-    plt.savefig('model_outputs/feature_importance_plot.png', dpi=300)
-    plt.close()
-    
-except Exception as e:
-    print(f"Failed to calculate feature importance: {str(e)}")
-    # Fallback to simple feature importance if available
-    if hasattr(estimator, 'feature_importances_'):
-        try:
-            importance_df = pd.DataFrame({
-                'feature': used_features[:len(estimator.feature_importances_)],
-                'importance': estimator.feature_importances_
+                'feature': used_features[:len(final_model.feature_importances_)],
+                'importance': final_model.feature_importances_
             }).sort_values('importance', ascending=False)
             importance_df.to_csv('model_outputs/feature_importance_fallback.csv', index=False)
             print("Exported simple feature importance as fallback")

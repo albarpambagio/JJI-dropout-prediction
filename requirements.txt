@@ -30,13 +30,9 @@ beautifulsoup4==4.13.4
 bleach==6.2.0
     # via nbconvert
 blinker==1.9.0
-    # via
-    #   flask
-    #   streamlit
+    # via streamlit
 cachetools==5.5.2
     # via streamlit
-category-encoders==2.6.4
-    # via pycaret
 certifi==2025.4.26
     # via
     #   httpcore
@@ -49,13 +45,10 @@ charset-normalizer==3.4.2
     # via requests
 click==8.1.8
     # via
-    #   flask
     #   streamlit
     #   uvicorn
 cloudpickle==3.1.1
-    # via
-    #   pycaret
-    #   shap
+    # via shap
 colorama==0.4.6
     # via
     #   click
@@ -68,21 +61,13 @@ comm==0.2.2
 contourpy==1.3.0
     # via matplotlib
 cycler==0.12.1
-    # via
-    #   matplotlib
-    #   yellowbrick
-cython==3.1.0
-    # via pmdarima
-dash==3.0.4
-    # via plotly-resampler
+    # via matplotlib
 debugpy==1.8.14
     # via ipykernel
 decorator==5.2.1
     # via ipython
 defusedxml==0.7.1
     # via nbconvert
-deprecation==2.1.0
-    # via pycaret
 exceptiongroup==1.3.0
     # via
     #   anyio
@@ -90,11 +75,9 @@ exceptiongroup==1.3.0
 executing==2.2.0
     # via stack-data
 fastapi==0.115.12
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 fastjsonschema==2.21.1
     # via nbformat
-flask==3.0.3
-    # via dash
 fonttools==4.58.0
     # via matplotlib
 fqdn==1.5.1
@@ -117,18 +100,13 @@ idna==3.10
     #   httpx
     #   jsonschema
     #   requests
-imbalanced-learn==0.12.4
-    # via pycaret
 importlib-metadata==8.7.0
     # via
-    #   dash
-    #   flask
     #   jupyter-client
     #   jupyter-lsp
     #   jupyterlab
     #   jupyterlab-server
     #   nbconvert
-    #   pycaret
 importlib-resources==6.5.2
     # via matplotlib
 ipykernel==6.29.5
@@ -141,35 +119,24 @@ ipython==8.18.1
     #   ipykernel
     #   ipywidgets
     #   jupyter-console
-    #   pycaret
 ipywidgets==8.1.7
-    # via
-    #   jupyter
-    #   pycaret
+    # via jupyter
 isoduration==20.11.0
     # via jsonschema
-itsdangerous==2.2.0
-    # via flask
 jedi==0.19.2
     # via ipython
 jinja2==3.1.6
     # via
     #   altair
-    #   flask
     #   jupyter-server
     #   jupyterlab
     #   jupyterlab-server
     #   nbconvert
-    #   pycaret
     #   pydeck
-joblib==1.3.2
+joblib==1.5.0
     # via
-    #   imbalanced-learn
-    #   pmdarima
-    #   pycaret
-    #   pyod
+    #   student-dropout-prediction (pyproject.toml)
     #   scikit-learn
-    #   scikit-plot
 json5==0.12.0
     # via jupyterlab-server
 jsonpointer==3.0.0
@@ -183,7 +150,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
     # via jsonschema
 jupyter==1.1.1
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 jupyter-client==8.6.3
     # via
     #   ipykernel
@@ -228,15 +195,11 @@ jupyterlab-server==2.27.3
 jupyterlab-widgets==3.0.15
     # via ipywidgets
 jupytext==1.17.1
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 kaleido==0.2.1
-    # via
-    #   jji-dropout-prediction (pyproject.toml)
-    #   pycaret
+    # via student-dropout-prediction (pyproject.toml)
 kiwisolver==1.4.7
     # via matplotlib
-lightgbm==4.6.0
-    # via pycaret
 llvmlite==0.43.0
     # via numba
 markdown-it-py==3.0.0
@@ -247,16 +210,10 @@ markupsafe==3.0.2
     # via
     #   jinja2
     #   nbconvert
-    #   pycaret
-    #   werkzeug
-matplotlib==3.7.5
+matplotlib==3.9.4
     # via
-    #   jji-dropout-prediction (pyproject.toml)
-    #   pycaret
-    #   pyod
-    #   scikit-plot
+    #   student-dropout-prediction (pyproject.toml)
     #   seaborn
-    #   yellowbrick
 matplotlib-inline==0.1.7
     # via
     #   ipykernel
@@ -267,7 +224,7 @@ mdurl==0.1.2
     # via markdown-it-py
 mistune==3.1.3
     # via nbconvert
-narwhals==1.39.1
+narwhals==1.40.0
     # via altair
 nbclient==0.10.2
     # via nbconvert
@@ -281,11 +238,8 @@ nbformat==5.10.4
     #   jupytext
     #   nbclient
     #   nbconvert
-    #   pycaret
 nest-asyncio==1.6.0
-    # via
-    #   dash
-    #   ipykernel
+    # via ipykernel
 notebook==7.4.2
     # via jupyter
 notebook-shim==0.2.4
@@ -293,44 +247,25 @@ notebook-shim==0.2.4
     #   jupyterlab
     #   notebook
 numba==0.60.0
+    # via shap
+numpy==2.0.2
     # via
-    #   pycaret
-    #   pyod
-    #   shap
-numpy==1.26.4
-    # via
-    #   jji-dropout-prediction (pyproject.toml)
-    #   category-encoders
+    #   student-dropout-prediction (pyproject.toml)
     #   contourpy
-    #   imbalanced-learn
-    #   lightgbm
     #   matplotlib
     #   numba
     #   pandas
-    #   patsy
-    #   plotly-resampler
-    #   pmdarima
-    #   pycaret
     #   pydeck
-    #   pyod
     #   scikit-learn
     #   scipy
     #   seaborn
     #   shap
-    #   sktime
-    #   statsmodels
     #   streamlit
-    #   tbats
-    #   tsdownsample
-    #   yellowbrick
-orjson==3.10.18
-    # via plotly-resampler
 overrides==7.7.0
     # via jupyter-server
 packaging==24.2
     # via
     #   altair
-    #   deprecation
     #   ipykernel
     #   jupyter-events
     #   jupyter-server
@@ -339,50 +274,25 @@ packaging==24.2
     #   jupytext
     #   matplotlib
     #   nbconvert
-    #   plotly
-    #   pmdarima
     #   shap
-    #   sktime
-    #   statsmodels
     #   streamlit
-pandas==2.1.4
+pandas==2.2.3
     # via
-    #   jji-dropout-prediction (pyproject.toml)
-    #   category-encoders
-    #   plotly-resampler
-    #   pmdarima
-    #   pycaret
+    #   student-dropout-prediction (pyproject.toml)
     #   seaborn
     #   shap
-    #   sktime
-    #   statsmodels
     #   streamlit
     #   ucimlrepo
 pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.4
     # via jedi
-patsy==1.0.1
-    # via
-    #   category-encoders
-    #   statsmodels
 pillow==11.2.1
     # via
     #   matplotlib
     #   streamlit
 platformdirs==4.3.8
     # via jupyter-core
-plotly==5.24.1
-    # via
-    #   dash
-    #   plotly-resampler
-    #   pycaret
-plotly-resampler==0.10.0
-    # via pycaret
-pmdarima==2.0.4
-    # via
-    #   pycaret
-    #   tbats
 prometheus-client==0.22.0
     # via jupyter-server
 prompt-toolkit==3.0.51
@@ -392,20 +302,16 @@ prompt-toolkit==3.0.51
 protobuf==6.31.0
     # via streamlit
 psutil==7.0.0
-    # via
-    #   ipykernel
-    #   pycaret
+    # via ipykernel
 pure-eval==0.2.3
     # via stack-data
 pyarrow==20.0.0
     # via streamlit
-pycaret==3.3.2
-    # via jji-dropout-prediction (pyproject.toml)
 pycparser==2.22
     # via cffi
 pydantic==2.11.4
     # via
-    #   jji-dropout-prediction (pyproject.toml)
+    #   student-dropout-prediction (pyproject.toml)
     #   fastapi
 pydantic-core==2.33.2
     # via pydantic
@@ -416,8 +322,6 @@ pygments==2.19.1
     #   ipython
     #   jupyter-console
     #   nbconvert
-pyod==2.0.5
-    # via pycaret
 pyparsing==3.2.3
     # via matplotlib
 python-dateutil==2.9.0.post0
@@ -454,12 +358,8 @@ referencing==0.36.2
     #   jupyter-events
 requests==2.32.3
     # via
-    #   dash
     #   jupyterlab-server
-    #   pycaret
     #   streamlit
-retrying==1.3.4
-    # via dash
 rfc3339-validator==0.1.4
     # via
     #   jsonschema
@@ -472,58 +372,26 @@ rpds-py==0.25.0
     # via
     #   jsonschema
     #   referencing
-schemdraw==0.15
-    # via pycaret
-scikit-base==0.7.8
-    # via sktime
-scikit-learn==1.4.2
+scikit-learn==1.6.1
     # via
-    #   jji-dropout-prediction (pyproject.toml)
-    #   category-encoders
-    #   imbalanced-learn
-    #   pmdarima
-    #   pycaret
-    #   pyod
-    #   scikit-plot
+    #   student-dropout-prediction (pyproject.toml)
     #   shap
-    #   sktime
-    #   tbats
-    #   yellowbrick
-scikit-plot==0.3.7
-    # via pycaret
-scipy==1.11.4
+scipy==1.13.1
     # via
-    #   category-encoders
-    #   imbalanced-learn
-    #   lightgbm
-    #   pmdarima
-    #   pycaret
-    #   pyod
     #   scikit-learn
-    #   scikit-plot
     #   shap
-    #   sktime
-    #   statsmodels
-    #   tbats
-    #   yellowbrick
 seaborn==0.13.2
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 send2trash==1.8.3
     # via jupyter-server
 setuptools==80.7.1
-    # via
-    #   dash
-    #   jupyterlab
-    #   pmdarima
+    # via jupyterlab
 shap==0.47.2
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 six==1.17.0
     # via
     #   python-dateutil
-    #   retrying
     #   rfc3339-validator
-sktime==0.26.0
-    # via pycaret
 slicer==0.0.8
     # via shap
 smmap==5.0.2
@@ -536,27 +404,16 @@ stack-data==0.6.3
     # via ipython
 starlette==0.46.2
     # via fastapi
-statsmodels==0.14.4
-    # via
-    #   category-encoders
-    #   pmdarima
-    #   pycaret
 streamlit==1.45.1
-    # via jji-dropout-prediction (pyproject.toml)
-tbats==1.1.3
-    # via pycaret
+    # via student-dropout-prediction (pyproject.toml)
 tenacity==9.1.2
-    # via
-    #   plotly
-    #   streamlit
+    # via streamlit
 terminado==0.18.1
     # via
     #   jupyter-server
     #   jupyter-server-terminals
 threadpoolctl==3.6.0
-    # via
-    #   imbalanced-learn
-    #   scikit-learn
+    # via scikit-learn
 tinycss2==1.4.0
     # via bleach
 toml==0.10.2
@@ -575,9 +432,7 @@ tornado==6.5
     #   streamlit
     #   terminado
 tqdm==4.67.1
-    # via
-    #   pycaret
-    #   shap
+    # via shap
 traitlets==5.14.3
     # via
     #   comm
@@ -594,8 +449,6 @@ traitlets==5.14.3
     #   nbclient
     #   nbconvert
     #   nbformat
-tsdownsample==0.1.4.1
-    # via plotly-resampler
 types-python-dateutil==2.9.0.20250516
     # via arrow
 typing-extensions==4.13.2
@@ -604,7 +457,6 @@ typing-extensions==4.13.2
     #   anyio
     #   async-lru
     #   beautifulsoup4
-    #   dash
     #   exceptiongroup
     #   fastapi
     #   ipython
@@ -623,15 +475,13 @@ typing-inspection==0.4.0
 tzdata==2025.2
     # via pandas
 ucimlrepo==0.0.7
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 uri-template==1.3.0
     # via jsonschema
 urllib3==2.4.0
-    # via
-    #   pmdarima
-    #   requests
+    # via requests
 uvicorn==0.34.2
-    # via jji-dropout-prediction (pyproject.toml)
+    # via student-dropout-prediction (pyproject.toml)
 watchdog==6.0.0
     # via streamlit
 wcwidth==0.2.13
@@ -644,16 +494,8 @@ webencodings==0.5.1
     #   tinycss2
 websocket-client==1.8.0
     # via jupyter-server
-werkzeug==3.0.6
-    # via
-    #   dash
-    #   flask
 widgetsnbextension==4.0.14
     # via ipywidgets
-xxhash==3.5.0
-    # via pycaret
-yellowbrick==1.5
-    # via pycaret
 zipp==3.21.0
     # via
     #   importlib-metadata

@@ -1,23 +1,52 @@
 [project]
-name = "jji-dropout-prediction"
+name = "student-dropout-prediction"
 version = "0.1.0"
-description = "Add your description here"
+description = "End-to-end student dropout prediction system with notebook, API, and web app support"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "fastapi>=0.115.12",
-    "jupyter>=1.1.1",
-    "jupytext>=1.17.1",
-    "kaleido==0.2.1",
-    "matplotlib>=3.7.5",
+    # Core data science stack
     "numpy>=1.26.4",
     "pandas>=2.1.4",
-    "pycaret>=3.3.2",
-    "pydantic>=2.11.4",
     "scikit-learn>=1.4.2",
+    "matplotlib>=3.7.5",
     "seaborn>=0.13.2",
-    "shap>=0.47.2",
-    "streamlit>=1.45.1",
+    
+    # Data handling
     "ucimlrepo>=0.0.7",
+    
+    # Visualization exports
+    "kaleido==0.2.1",
+    
+    # Model persistence
+    "joblib>=1.3.2",
+    
+    # Notebook support
+    "jupyter>=1.1.1",
+    "jupytext>=1.17.1",
+    
+    # Web app framework (kept as requested)
+    "streamlit>=1.45.1",
+    
+    # API framework (kept as requested)
+    "fastapi>=0.115.12",
     "uvicorn>=0.34.2",
+    "pydantic>=2.11.4",
+    
+    # Model explainability
+    "shap>=0.47.2"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.7.0",
+    "flake8>=6.0.0",
+    "jupyterlab>=4.0.0"
+]
+
+full = [
+    "plotly>=5.18.0",
+    "ipywidgets>=8.0.0",
+    "scipy>=1.11.0"
 ]
