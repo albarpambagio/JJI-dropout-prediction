@@ -1,19 +1,20 @@
 import json
 import pandas as pd
+import joblib
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from pycaret.classification import load_model, predict_model
 from typing import Union
 
 # Load model and required features
-model = load_model('model_outputs/final_student_dropout_model')
+model = joblib.load('model_outputs/final_student_dropout_model.joblib')
 with open('model_outputs/model_features.json', 'r') as f:
     required_features = json.load(f)
 
-# Value mappings (update as needed based on your variable_list.md)
+# Value mappings
 GENDER_MAP = {1: 'male', 0: 'female'}
 MARITAL_STATUS_MAP = {
-    1: 'single', 2: 'married', 3: 'widower', 4: 'divorced', 5: 'facto union', 6: 'legally separated'
+    1: 'single', 2: 'married', 3: 'widower', 4: 'divorced', 
+    5: 'facto union', 6: 'legally separated'
 }
 BINARY_MAP = {0: 'No', 1: 'Yes'}
 # Reverse mappings for label-to-code
@@ -30,7 +31,6 @@ categorical_options = {
     'Tuition_fees_up_to_date': BINARY_MAP_REV,
     'Scholarship_holder': BINARY_MAP_REV,
     'International': BINARY_MAP_REV,
-    # Add more mappings as needed for your dataset
 }
 
 # Map prediction labels to integer codes
@@ -47,6 +47,15 @@ def standardize_feature_names(df):
                  for col in df.columns]
     return df
 
+def predict_model(model, data):
+    """Custom predict function to match PyCaret's output format"""
+    predictions = model.predict(data)
+    probabilities = model.predict_proba(data)
+    return pd.DataFrame({
+        'prediction_label': predictions,
+        'prediction_score': probabilities.max(axis=1)
+    })
+
 def prepare_input(data: dict):
     # Convert string labels to codes for categorical fields
     for col, mapping in categorical_options.items():
@@ -54,14 +63,18 @@ def prepare_input(data: dict):
             if data[col] in mapping:
                 data[col] = mapping[data[col]]
             else:
-                raise HTTPException(status_code=400, detail=f"Invalid value '{data[col]}' for {col}. Allowed: {list(mapping.keys())}")
+                raise HTTPException(status_code=400, 
+                                 detail=f"Invalid value '{data[col]}' for {col}. Allowed: {list(mapping.keys())}")
+    
     df = pd.DataFrame([data])
     df = standardize_feature_names(df)
+    
+    # Add missing features with default values
     for col in required_features:
         if col not in df.columns:
             df[col] = 0
-    df = df[required_features]
-    return df
+    
+    return df[required_features]
 
 class StudentData(BaseModel):
     Marital_Status: Union[int, str] = 1
@@ -107,18 +120,24 @@ app = FastAPI()
 def predict(data: StudentData):
     try:
         df = prepare_input(data.dict())
-        result = predict_model(model, data=df)
+        result = predict_model(model, df)
         pred = result['prediction_label'].iloc[0]
         score = result['prediction_score'].iloc[0]
-        print(f"Raw prediction: {pred}, type: {type(pred)}")
-        # Map string label to integer code
+        
+        # Map string label to integer code if needed
         if isinstance(pred, str):
             if pred in PREDICTION_LABEL_MAP:
                 prediction_int = PREDICTION_LABEL_MAP[pred]
             else:
-                raise HTTPException(status_code=400, detail=f"Unknown prediction label: {pred}")
+                raise HTTPException(status_code=400, 
+                                 detail=f"Unknown prediction label: {pred}")
         else:
             prediction_int = int(pred)
-        return {"prediction": prediction_int, "probability": float(score)}
+            
+        return {
+            "prediction": prediction_int, 
+            "probability": float(score),
+            "prediction_label": str(pred)
+        }
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e)) 
+        raise HTTPException(status_code=400, detail=str(e))
